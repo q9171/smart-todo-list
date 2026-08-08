@@ -138,8 +138,169 @@
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 18px;
-    align-items: center;
+    align-items: stretch;
     margin-bottom: 20px;
+  }
+  .hero-right {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    justify-content: flex-start;
+    align-items: flex-end;
+  }
+  .date-greeting {
+    color: var(--muted);
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .greeting-name { color: var(--primary); font-weight: 800; }
+  .today-schedule-card {
+    width: 220px;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0;
+    max-height: calc(100vh - 260px);
+  }
+  .ts-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+  }
+  .ts-header span {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  .ts-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+  .ts-list::-webkit-scrollbar { width: 4px; }
+  .ts-list::-webkit-scrollbar-thumb { background: rgba(99,102,241,.3); border-radius: 4px; }
+  .ts-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    line-height: 1.4;
+    color: var(--text);
+  }
+  .ts-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--primary);
+    margin-top: 6px;
+    flex-shrink: 0;
+  }
+  .ts-empty {
+    color: var(--muted);
+    font-size: 13px;
+    text-align: center;
+    padding: 12px 0;
+  }
+  .ts-view-all {
+    margin-top: 4px;
+    font-size: 12px;
+    padding: 8px 10px;
+    border-radius: 12px;
+  }
+  .all-schedule-modal { width: 90%; max-width: 520px; max-height: 70vh; display: flex; flex-direction: column; }
+  .all-schedule-modal h3 { display: flex; align-items: center; gap: 10px; }
+  .all-schedule-modal h3 span {
+    background: linear-gradient(135deg, var(--primary), var(--accent));
+    color: white;
+    font-size: 12px;
+    font-weight: 800;
+    padding: 2px 8px;
+    border-radius: 999px;
+  }
+  .all-schedule-modal .schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 12px;
+    overflow-y: auto;
+    max-height: 45vh;
+    padding-right: 4px;
+  }
+  .all-schedule-modal .schedule-list::-webkit-scrollbar { width: 5px; }
+  .all-schedule-modal .schedule-list::-webkit-scrollbar-thumb { background: rgba(99,102,241,.3); border-radius: 4px; }
+
+  /* ===== 侧边栏小组件 ===== */
+  .left-widget, .right-widget { display: none; }
+  .widget-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(18px);
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .widget-title { font-size: 15px; font-weight: 800; color: var(--text); }
+  .widget-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .widget-metric {
+    background: var(--card-solid);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 12px;
+    text-align: center;
+  }
+  .widget-metric strong { display: block; font-size: 22px; color: var(--primary); margin-bottom: 2px; }
+  .widget-metric span { font-size: 12px; color: var(--muted); }
+  .widget-section { display: flex; flex-direction: column; gap: 8px; }
+  .widget-subtitle { font-size: 12px; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: .4px; }
+  .priority-bars { display: flex; flex-direction: column; gap: 8px; }
+  .p-bar-row { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+  .p-bar-row .p-label { width: 42px; color: var(--muted); }
+  .p-bar-row .p-track { flex: 1; height: 8px; background: rgba(120,142,180,.15); border-radius: 999px; overflow: hidden; }
+  .p-bar-row .p-fill { height: 100%; border-radius: 999px; transition: width .4s var(--ease); }
+  .p-bar-row .p-count { width: 20px; text-align: right; color: var(--text); font-weight: 700; }
+  .trend-chart { display: flex; align-items: flex-end; justify-content: space-between; gap: 4px; height: 64px; padding-top: 8px; }
+  .trend-bar { flex: 1; min-width: 14px; background: linear-gradient(180deg, var(--primary), var(--primary-2)); border-radius: 6px 6px 0 0; opacity: .85; transition: height .4s var(--ease); position: relative; }
+  .trend-bar:hover { opacity: 1; }
+  .trend-bar::after { content: attr(data-day); position: absolute; bottom: -16px; left: 50%; transform: translateX(-50%); font-size: 10px; color: var(--muted); }
+  .trend-empty { color: var(--muted); font-size: 13px; text-align: center; padding: 12px 0; }
+
+  @media (min-width: 1400px) {
+    body { padding: 32px 28px 54px; }
+    .app {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 980px) 240px;
+      gap: 24px;
+      max-width: 1540px;
+      margin: 0 auto;
+    }
+    .left-widget, .right-widget { display: flex; flex-direction: column; gap: 16px; }
+    .left-widget { grid-column: 1; grid-row: 1 / span 6; position: sticky; top: 32px; height: fit-content; }
+    .right-widget { grid-column: 3; grid-row: 1; position: sticky; top: 32px; height: fit-content; max-height: calc(100vh - 64px); }
+    .hero, .stats, .schedule-banner, .panel, .progress-card, .todo-list { grid-column: 2; }
+    .hero { width: 100%; margin-bottom: 0; }
+    .hero-right { justify-content: flex-end; }
+    .stats { margin-bottom: 16px; }
   }
 
   .title-card, .panel {
@@ -200,8 +361,8 @@
   .stat span { color: var(--muted); font-size: 13px; }
 
   .panel { padding: 18px; margin-bottom: 16px; overflow: visible; }
-  .panel:not(.progress-card):not(.schedule-card) { width: min(980px, 100%); margin-left: auto; margin-right: auto; }
-  .panel.progress-card, .panel.schedule-card { width: 100%; }
+  .panel:not(.progress-card) { width: min(980px, 100%); margin-left: auto; margin-right: auto; }
+  .panel.progress-card { width: 100%; }
   .composer { display: grid; grid-template-columns: 1fr 140px auto auto; gap: 10px; overflow: visible; }
   .input, .select {
     width: 100%;
@@ -469,9 +630,17 @@
   @keyframes fly { to { opacity: 0; transform: translate(var(--x), var(--y)) rotate(420deg) scale(.3); } }
   @keyframes shake { 20% { transform: translateX(-6px); } 40% { transform: translateX(6px); } 60% { transform: translateX(-4px); } 80% { transform: translateX(4px); } }
 
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { flex-direction: row; align-items: flex-start; justify-content: space-between; width: 100%; }
+    .today-schedule-card { width: 100%; max-width: 320px; }
+    .top-actions { position: absolute; right: 14px; top: 14px; display: flex; gap: 10px; }
+  }
   @media (max-width: 760px) {
     body { padding: 18px 12px 36px; }
     .hero { grid-template-columns: 1fr; }
+    .hero-right { flex-direction: column; align-items: stretch; }
+    .today-schedule-card { width: 100%; max-width: none; }
     .top-actions { position: absolute; right: 14px; top: 14px; display: flex; gap: 10px; }
     .theme-btn, .sound-btn { position: static; }
     .stats { grid-template-columns: repeat(2, 1fr); }
@@ -552,7 +721,6 @@
   @keyframes banner-scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
   [data-theme="dark"] .schedule-banner { background: linear-gradient(90deg, rgba(99,102,241,.22), rgba(56,189,248,.18)); }
 
-  .schedule-card { margin-bottom: 18px; }
   .schedule-list { display: grid; grid-template-columns: 1fr; gap: 10px; margin-top: 12px; }
   @media (min-width: 1100px) {
     .schedule-list { grid-template-columns: repeat(2, 1fr); }
@@ -569,17 +737,56 @@
 <body>
   <div class="confetti" id="confetti"></div>
   <main class="app">
+  <aside class="left-widget" id="leftWidget">
+    <div class="widget-card">
+      <div class="widget-title">📊 数据概览</div>
+      <div class="widget-row">
+        <div class="widget-metric">
+          <strong id="statToday">0</strong>
+          <span>今日完成</span>
+        </div>
+        <div class="widget-metric">
+          <strong id="statWeek">0</strong>
+          <span>本周完成</span>
+        </div>
+      </div>
+      <div class="widget-section">
+        <div class="widget-subtitle">优先级分布</div>
+        <div class="priority-bars" id="priorityBars"></div>
+      </div>
+      <div class="widget-section">
+        <div class="widget-subtitle">近7天完成趋势</div>
+        <div class="trend-chart" id="trendChart"></div>
+      </div>
+    </div>
+  </aside>
+
     <section class="hero">
       <div class="title-card">
+        <div class="date-greeting" id="dateGreeting"></div>
         <div class="eyebrow">Today Focus</div>
         <h1>把杂乱变成清单 ✨</h1>
-        <p class="subtitle" id="greeting">添加任务、设定优先级和截止日期；完成一项就给自己一点小小烟花。</p>
+        <p class="subtitle">添加任务、设定优先级和截止日期；完成一项就给自己一点小小烟花。</p>
       </div>
-      <div class="top-actions">
-        <button class="sound-btn" id="soundBtn" title="开启/关闭音效">🔊</button>
-        <button class="theme-btn" id="themeBtn" title="切换明暗主题">🌙</button>
+      <div class="hero-right">
+        <div class="top-actions">
+          <button class="sound-btn" id="soundBtn" title="开启/关闭音效">🔊</button>
+          <button class="theme-btn" id="themeBtn" title="切换明暗主题">🌙</button>
+        </div>
+        
       </div>
     </section>
+
+  <aside class="today-schedule-card right-widget" id="rightWidget">
+    <div class="ts-header">
+      <strong>📅 全部日程</strong>
+      <span id="todayScheduleCount">0</span>
+    </div>
+    <div class="ts-list" id="todayScheduleList">
+      <div class="ts-empty">还没有日程</div>
+    </div>
+    <button class="ghost-btn ts-view-all" id="viewAllScheduleBtn">管理全部日程</button>
+  </aside>
 
     <section class="stats">
       <div class="stat"><strong id="statTotal">0</strong><span>全部任务</span></div>
@@ -640,6 +847,16 @@
       </div>
     </div>
 
+    <div class="modal-overlay" id="allScheduleModal" style="display:none">
+      <div class="modal-content all-schedule-modal">
+        <h3>📅 全部日程 <span id="allScheduleCount">0</span></h3>
+        <div class="schedule-list" id="allScheduleList"></div>
+        <div class="modal-actions">
+          <button class="ghost-btn" id="closeAllScheduleBtn">关闭</button>
+        </div>
+      </div>
+    </div>
+
     <div class="modal-overlay" id="editModal" style="display:none">
       <div class="modal-content">
         <h3>编辑任务</h3>
@@ -664,13 +881,9 @@
       <div class="track"><div class="fill" id="progressFill"></div></div>
     </section>
 
-    <section class="panel schedule-card">
-      <div class="progress-top"><strong>📅 我的日程</strong><span id="scheduleCount">0 条</span></div>
-      <div class="schedule-list" id="scheduleList"></div>
-    </section>
-
     <section class="todo-list" id="todoList"></section>
-  </main>
+
+</main>
 
   <div class="toast" id="toast"></div>
 
@@ -706,6 +919,21 @@ function todaySchedules() {
   return schedules.filter((s) => s.date === tk);
 }
 
+function upcomingSchedules(days = 7) {
+  const tk = todayKey();
+  const start = new Date(tk);
+  start.setHours(0, 0, 0, 0);
+  const end = new Date(start);
+  end.setDate(end.getDate() + days);
+  return schedules
+    .filter((s) => {
+      const d = new Date(s.date);
+      d.setHours(0, 0, 0, 0);
+      return d >= start && d <= end;
+    })
+    .sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+}
+
 function renderBanner() {
   const today = todaySchedules();
   const banner = $('#scheduleBanner');
@@ -717,22 +945,64 @@ function renderBanner() {
   track.innerHTML = seq + seq;
 }
 
-function renderScheduleList() {
-  const list = $('#scheduleList');
-  $('#scheduleCount').textContent = schedules.length + ' 条';
+function renderTodayScheduleList() {
+  const list = $('#todayScheduleList');
+  const count = $('#todayScheduleCount');
+  count.textContent = schedules.length;
   if (!schedules.length) {
-    list.innerHTML = '<div class="empty" style="padding:6px 0"><span class="moon">🗓️</span><strong>还没有日程</strong><p>点击右上角「＋ 日程」添加某天的提醒。</p></div>';
+    list.innerHTML = '<div class="ts-empty">还没有日程</div>';
+    return;
+  }
+  const sorted = [...schedules].sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
+  list.innerHTML = sorted.map((s) => {
+    const isToday = s.date === todayKey();
+    const label = isToday ? '今天' : formatDate(s.date);
+    return '<div class="ts-item">' +
+      '<span class="ts-dot"></span>' +
+      '<span><strong>' + label + '</strong> ' + escapeHtml(s.text) + '</span>' +
+    '</div>';
+  }).join('');
+}
+
+function renderAllScheduleList() {
+  const list = $('#allScheduleList');
+  const count = $('#allScheduleCount');
+  count.textContent = schedules.length;
+  if (!schedules.length) {
+    list.innerHTML = '<div class="empty" style="padding:20px 0"><span class="moon">🗓️</span><strong>还没有日程</strong><p>点击右上角「＋ 日程」添加提醒。</p></div>';
     return;
   }
   const sorted = [...schedules].sort((a, b) => a.date < b.date ? -1 : a.date > b.date ? 1 : 0);
   list.innerHTML = sorted.map((s) => {
     const isToday = s.date === todayKey();
     return '<div class="schedule-item ' + (isToday ? 'today' : '') + '">' +
-      '<span class="s-date">' + formatDate(s.date) + '</span>' +
+      '<span class="s-date">' + (isToday ? '今天' : formatDate(s.date)) + '</span>' +
       '<span class="s-text">' + escapeHtml(s.text) + '</span>' +
       '<button class="icon-btn danger" data-sid="' + s.id + '" title="删除">×</button>' +
       '</div>';
   }).join('');
+}
+
+function openAllScheduleModal() {
+  renderAllScheduleList();
+  $('#allScheduleModal').style.display = 'flex';
+}
+
+function closeAllScheduleModal() {
+  $('#allScheduleModal').style.display = 'none';
+}
+
+function renderGreeting() {
+  const now = new Date();
+  const weekdays = ['星期日','星期一','星期二','星期三','星期四','星期五','星期六'];
+  const dateText = now.getFullYear() + '年' + (now.getMonth()+1) + '月' + now.getDate() + '日 ' + weekdays[now.getDay()];
+  const hour = now.getHours();
+  let period = '早上好';
+  if (hour >= 11 && hour < 13) period = '中午好';
+  else if (hour >= 13 && hour < 18) period = '下午好';
+  else if (hour >= 18) period = '晚上好';
+  const el = $('#dateGreeting');
+  if (el) el.innerHTML = '<span>' + dateText + '</span><span class="greeting-name">' + period + '，千 ✋</span>';
 }
 
 function addSchedule(date, text) {
@@ -744,7 +1014,7 @@ function addSchedule(date, text) {
   });
   saveSchedules();
   renderBanner();
-  renderScheduleList();
+  renderTodayScheduleList();
   playSound('add');
   showToast('已添加日程');
 }
@@ -753,7 +1023,7 @@ function deleteSchedule(id) {
   schedules = schedules.filter((s) => s.id !== id);
   saveSchedules();
   renderBanner();
-  renderScheduleList();
+  renderTodayScheduleList();
   showToast('已删除日程');
 }
 
@@ -908,6 +1178,61 @@ function getVisibleTodos() {
     .filter((todo) => todo.text.toLowerCase().includes(search.toLowerCase()));
 }
 
+function startOfDay(ts) {
+  const d = new Date(ts);
+  d.setHours(0, 0, 0, 0);
+  return d.getTime();
+}
+
+function startOfWeek(ts) {
+  const d = new Date(ts);
+  const day = d.getDay() || 7;
+  d.setHours(0, 0, 0, 0);
+  d.setDate(d.getDate() - day + 1);
+  return d.getTime();
+}
+
+function renderStatsPanel() {
+  const now = Date.now();
+  const todayTs = startOfDay(now);
+  const weekTs = startOfWeek(now);
+  const todayDone = todos.filter((t) => t.completedAt && startOfDay(t.completedAt) >= todayTs).length;
+  const weekDone = todos.filter((t) => t.completedAt && startOfDay(t.completedAt) >= weekTs).length;
+  const pMap = { high: "高", medium: "中", low: "低" };
+  const pColor = { high: "var(--danger)", medium: "var(--warning)", low: "var(--success)" };
+  const counts = { high: 0, medium: 0, low: 0 };
+  todos.forEach((t) => { counts[t.priority] = (counts[t.priority] || 0) + 1; });
+  const total = todos.length;
+  let barsHtml = "";
+  ["high", "medium", "low"].forEach((p) => {
+    const c = counts[p] || 0;
+    const pct = total ? Math.round((c / total) * 100) : 0;
+    barsHtml += "<div class=\"p-bar-row\">" +
+      "<span class=\"p-label\">" + pMap[p] + "</span>" +
+      "<div class=\"p-track\"><div class=\"p-fill\" style=\"width:" + pct + "%;background:" + pColor[p] + "\"></div></div>" +
+      "<span class=\"p-count\">" + c + "</span>" +
+      "</div>";
+  });
+  $("#priorityBars").innerHTML = barsHtml;
+
+  const trend = [];
+  for (let i = 6; i >= 0; i--) {
+    const d = new Date(todayTs);
+    d.setDate(d.getDate() - i);
+    const dayTs = d.getTime();
+    const dayDone = todos.filter((t) => t.completedAt && startOfDay(t.completedAt) === dayTs).length;
+    trend.push({ day: d.getDate() + "日", count: dayDone });
+  }
+  const maxCount = Math.max(...trend.map((x) => x.count), 1);
+  const trendHtml = trend.map((x) =>
+    "<div class=\"trend-bar\" style=\"height:" + Math.max(4, Math.round((x.count / maxCount) * 56)) + "px\" data-day=\"" + x.day + "\" title=\"" + x.day + " 完成 " + x.count + " 项\"></div>"
+  ).join("");
+  $("#trendChart").innerHTML = trendHtml || "<div class=\"trend-empty\">暂无数据</div>";
+
+  $("#statToday").textContent = todayDone;
+  $("#statWeek").textContent = weekDone;
+}
+
 function render() {
   applyCheckinResets();
   const total = todos.length;
@@ -921,6 +1246,10 @@ function render() {
   $('#statRate').textContent = `${rate}%`;
   $('#progressFill').style.width = `${rate}%`;
   $('#progressLabel').textContent = total ? `${done}/${total} 已完成` : '还没开始';
+
+  renderGreeting();
+  renderStatsPanel();
+  renderTodayScheduleList();
 
   document.querySelectorAll('.filter-btn').forEach((button) => button.classList.toggle('active', button.dataset.filter === filter));
 
@@ -1376,9 +1705,15 @@ $('#scheduleBannerTrack').addEventListener('click', (e) => {
   const del = e.target.closest('.del');
   if (del) deleteSchedule(del.dataset.sid);
 });
-$('#scheduleList').addEventListener('click', (e) => {
+$('#viewAllScheduleBtn').addEventListener('click', openAllScheduleModal);
+$('#closeAllScheduleBtn').addEventListener('click', closeAllScheduleModal);
+$('#allScheduleModal').addEventListener('click', (e) => { if (e.target === $('#allScheduleModal')) closeAllScheduleModal(); });
+$('#allScheduleList').addEventListener('click', (e) => {
   const btn = e.target.closest('[data-sid]');
-  if (btn) deleteSchedule(btn.dataset.sid);
+  if (btn) {
+    deleteSchedule(btn.dataset.sid);
+    renderAllScheduleList();
+  }
 });
 
 initTheme();
@@ -1386,7 +1721,7 @@ initSound();
 applyCheckinResets();
 render();
 renderBanner();
-renderScheduleList();
+renderTodayScheduleList();
 
 function bindCheckinToggle(boxId, numId, labelId) {
   const box = $(boxId);
