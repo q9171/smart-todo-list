@@ -897,6 +897,8 @@ const $ = (selector) => document.querySelector(selector);
 
 let todos = loadTodos();
 let schedules = loadSchedules();
+// 首次访问且无数据时注入演示数据（比赛展示用）
+if (todos.length === 0) seedDemoData();
 let filter = 'all';
 let search = '';
 let completedCollapsed = true;
@@ -913,6 +915,42 @@ function loadSchedules() {
 function saveSchedules() {
   localStorage.setItem(SCHEDULE_KEY, JSON.stringify(schedules));
 }
+function seedDemoData() {
+  const DAY = 86400000;
+  const today0 = startOfDay(Date.now());
+  const dk = (offset) => dateKey(new Date(today0 + offset * DAY));
+  const tsAt = (dayOffset, hour) => {
+    const d = new Date(today0 + dayOffset * DAY);
+    d.setHours(hour, 0, 0, 0);
+    return d.getTime();
+  };
+  const uid = () => crypto.randomUUID ? crypto.randomUUID() : String(Date.now() + Math.random());
+  const done = (offset, hour) => ({ completedAt: tsAt(offset, hour), stages: [true, true, true, true] });
+  const prog = (n) => ({ completedAt: null, stages: [true, true, true, true].map((_, i) => i < n) });
+  todos = [
+    { id: uid(), text: '整理 2026 级新生录取名册', priority: 'high', due: dk(0), start: dk(-2), createdAt: tsAt(-3, 9), ...done(0, 10), checkIn: { enabled: false, intervalDays: 1, lastDoneAt: null } },
+    { id: uid(), text: '统计本周报名咨询数据', priority: 'medium', due: dk(-1), start: dk(-3), createdAt: tsAt(-4, 14), ...done(-1, 16), checkIn: { enabled: false, intervalDays: 1, lastDoneAt: null } },
+    { id: uid(), text: '整理家长来电常见问题', priority: 'medium', due: dk(-2), start: dk(-4), createdAt: tsAt(-5, 10), ...done(-3, 15), checkIn: { enabled: false, intervalDays: 1, lastDoneAt: null } },
+    { id: uid(), text: '打印新生报到指南', priority: 'low', due: dk(-3), start: dk(-5), createdAt: tsAt(-6, 9), ...done(-5, 11), checkIn: { enabled: false, intervalDays: 1, lastDoneAt: null } },
+    { id: uid(), text: '更新官网招生问答页', priority: 'low', due: dk(-1), start: dk(-6), createdAt: tsAt(-7, 13), ...done(-6, 17), checkIn: { enabled: false, intervalDays: 1, lastDoneAt: null } },
+    { id: uid(), text: '联系附中安排招生宣讲', priority: 'high', due: dk(2), start: dk(-1), createdAt: tsAt(-1, 9), ...prog(2), checkIn: { enabled: false, intervalDays: 1, lastDoneAt: null } },
+    { id: uid(), text: '编写 2026 招生简章', priority: 'high', due: dk(5), start: dk(0), createdAt: tsAt(0, 8), ...prog(1), checkIn: { enabled: false, intervalDays: 1, lastDoneAt: null } },
+    { id: uid(), text: '更新官网招生 FAQ', priority: 'medium', due: dk(3), start: dk(0), createdAt: tsAt(0, 9), ...prog(0), checkIn: { enabled: false, intervalDays: 1, lastDoneAt: null } },
+    { id: uid(), text: '预约招生总结会会议室', priority: 'low', due: dk(4), start: '', createdAt: tsAt(0, 9), ...prog(0), checkIn: { enabled: false, intervalDays: 1, lastDoneAt: null } },
+    { id: uid(), text: '每日招生数据核对', priority: 'medium', due: '', start: '', createdAt: tsAt(-7, 9), completedAt: null, stages: [false, false, false, false], checkIn: { enabled: true, intervalDays: 1, lastDoneAt: tsAt(0, 9) } },
+    { id: uid(), text: '每周招生例会准备', priority: 'low', due: '', start: '', createdAt: tsAt(-10, 9), completedAt: null, stages: [false, false, false, false], checkIn: { enabled: true, intervalDays: 7, lastDoneAt: tsAt(-2, 14) } }
+  ];
+  schedules = [
+    { id: uid(), date: dk(0), text: '招生工作例会', createdAt: tsAt(-2, 10) },
+    { id: uid(), date: dk(1), text: '附中宣讲对接会', createdAt: tsAt(-2, 10) },
+    { id: uid(), date: dk(2), text: '新生报到协调会', createdAt: tsAt(-1, 15) },
+    { id: uid(), date: dk(4), text: '招生数据月度汇总', createdAt: tsAt(0, 9) },
+    { id: uid(), date: dk(6), text: '校园开放日筹备', createdAt: tsAt(0, 9) }
+  ];
+  saveTodos();
+  saveSchedules();
+}
+
 
 function todaySchedules() {
   const tk = todayKey();
